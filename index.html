@@ -1,0 +1,632 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>[hidden]{display:none!important}body{margin:0}img{max-width:100%}</style>
+<title>Nourished by the Good Word</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="A resource guide for new members of The Church of Jesus Christ of Latter-day Saints.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=Cormorant+Garamond:ital,wght@1,500&family=Source+Sans+3:wght@400;600;700&display=swap">
+<style>
+/* Layout: a short header with a temple glowing at sunrise, a two-tab bar (Resources up front, Church Basics behind), dense category lists that print on four letter pages. */
+:root{
+  --bg:#F6F7FA; --surface:#FFFFFF; --ink:#1D2340; --muted:#545A72; --line:#DCDFE8;
+  --gold:#B9842B; --gold-ink:#7E540D; --gold-soft:#F5EAD2; --olive:#45633B;
+  --sky-1:#141A3A; --sky-2:#33305F; --sky-3:#7E5277; --sky-4:#D98E5C; --sky-5:#F6CE7C;
+  --grove-back:#2E2A50; --grove-front:#121631; --on-dark:#FBF7EE; --on-dark-muted:#D5D2E3;
+  --f-display:"Marcellus",Georgia,serif;
+  --f-scripture:"Cormorant Garamond",Garamond,Georgia,serif;
+  --f-body:"Source Sans 3","Segoe UI",system-ui,-apple-system,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0F1328; --surface:#161B35; --ink:#ECE9E1; --muted:#AEB2C7; --line:#2B3253;
+  --gold:#E2B15A; --gold-ink:#EBC47C; --gold-soft:#2E281C; --olive:#A9C897;
+  --sky-1:#0B0F24; --sky-2:#231F46; --sky-3:#5C3A5E; --sky-4:#B36F48; --sky-5:#E2B465;
+  --grove-back:#221E3E; --grove-front:#0A0D1E; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0F1328; --surface:#161B35; --ink:#ECE9E1; --muted:#AEB2C7; --line:#2B3253;
+  --gold:#E2B15A; --gold-ink:#EBC47C; --gold-soft:#2E281C; --olive:#A9C897;
+  --sky-1:#0B0F24; --sky-2:#231F46; --sky-3:#5C3A5E; --sky-4:#B36F48; --sky-5:#E2B465;
+  --grove-back:#221E3E; --grove-front:#0A0D1E; color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-padding-top:64px}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.5;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+a{color:var(--gold-ink);text-decoration:none;font-weight:600}
+a:hover{text-decoration:underline;text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:3px}
+h1,h2,h3{font-family:var(--f-display);font-weight:400;margin:0;text-wrap:balance}
+p{margin:0}
+ul{margin:0;padding:0;list-style:none}
+.wrap{max-width:1100px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.scripture{font-family:var(--f-scripture);font-style:italic;font-weight:500}
+.cite{font-size:.76rem;letter-spacing:.08em;text-transform:uppercase;font-style:normal;font-family:var(--f-body);margin-left:6px;white-space:nowrap}
+.printonly{display:none}
+
+/* Header */
+.hero{position:relative;overflow:hidden;isolation:isolate;color:var(--on-dark);background:linear-gradient(180deg,var(--sky-1) 0%,var(--sky-2) 45%,var(--sky-3) 80%,var(--sky-4) 100%)}
+.hero svg.scene{position:absolute;inset:0;width:100%;height:100%;z-index:-2}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,340px);gap:24px;align-items:end;padding-block:24px 0}
+.hero .title{padding-bottom:44px}
+.hero svg.temple{display:block;width:100%;max-width:340px;height:auto;justify-self:end}
+@media screen and (max-width:640px){
+  .hero .wrap{grid-template-columns:1fr;gap:0}
+  .hero .title{padding:12px 0 0}
+  .hero svg.temple{justify-self:center;max-width:250px}
+}
+.eyebrow{font-size:.76rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--sky-5)}
+.hero h1{font-size:clamp(2.2rem,5vw,3.5rem);line-height:1.04;margin:8px 0 12px}
+.hero h1 em{font-family:var(--f-scripture);font-style:italic;font-weight:500;color:var(--sky-5)}
+.hero .scripture{font-size:1.28rem;line-height:1.4;max-width:46ch}
+.hero .cite{color:var(--on-dark-muted)}
+.hero .ref{font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;color:var(--on-dark-muted)}
+.hero .how{margin-top:12px;font-size:.95rem;color:var(--on-dark-muted);max-width:62ch}
+
+/* Tab bar */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--surface);border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;align-items:center;gap:14px;padding-block:8px}
+.tabs{display:flex;gap:4px;flex:none;background:var(--bg);padding:3px;border-radius:99px;border:1px solid var(--line)}
+.tab{font:inherit;font-size:.92rem;font-weight:700;padding:7px 16px;border-radius:99px;border:0;background:transparent;color:var(--muted);cursor:pointer}
+.tab[aria-selected="true"]{background:var(--ink);color:var(--bg)}
+.jump{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;min-width:0;flex:1}
+.jump::-webkit-scrollbar{display:none}
+.jump a{padding:6px 10px;border-radius:99px;white-space:nowrap;font-size:.87rem;color:var(--muted)}
+.jump a:hover{background:var(--bg);color:var(--ink);text-decoration:none}
+
+/* Sections */
+main{padding-block:8px 40px}
+section{padding-top:30px;min-width:0}
+.sh{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;border-bottom:2px solid var(--gold);padding-bottom:6px;margin-bottom:12px}
+.sh h2{font-size:1.6rem;line-height:1.15}
+.sh .sub{font-size:.92rem;color:var(--muted)}
+h3{font-size:1.1rem;color:var(--olive);margin:0 0 4px}
+.cols2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 40px}
+.cols3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 36px}
+.panel-head{padding-top:28px}
+.panel-head h2{font-size:2rem}
+.panel-head p{color:var(--muted);margin-top:4px}
+
+ul.list li{break-inside:avoid;padding:4px 0 4px 14px;position:relative}
+ul.list li::before{content:"";position:absolute;left:0;top:.75em;width:5px;height:5px;border-radius:50%;background:var(--gold)}
+ul.list.flow{columns:2;column-gap:40px}
+.n{color:var(--muted)}
+
+/* Scriptures */
+.verses{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 44px}
+.vblock{min-width:0}
+.vbh{font-size:1.25rem;color:var(--ink);margin:0}
+.vbs{font-size:.88rem;color:var(--muted);margin:0 0 10px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.vg{break-inside:avoid;margin-bottom:14px}
+.vg h4{font-family:var(--f-display);font-weight:400;font-size:1.08rem;color:var(--olive);margin:0 0 4px}
+.vg li{padding:3px 0;line-height:1.38}
+.vg li a{white-space:nowrap}
+.also{margin-top:4px;font-size:.95rem;color:var(--muted)}
+
+table.t{width:100%;border-collapse:collapse}
+table.t td{padding:6px 12px 6px 0;border-bottom:1px solid var(--line);vertical-align:top}
+table.t td:first-child{font-weight:700;white-space:nowrap}
+dl.gl{columns:2;column-gap:40px;margin:0}
+dl.gl div{break-inside:avoid;padding:3px 0}
+dl.gl dt{display:inline;font-weight:700}
+dl.gl dd{display:inline;margin:0;color:var(--muted)}
+
+footer{margin-top:32px;background:var(--grove-front);color:var(--on-dark-muted);padding-block:26px;font-size:.9rem}
+footer .wrap{display:grid;gap:8px}
+footer .scripture{color:var(--on-dark);font-size:1.2rem}
+
+@media screen and (max-width:860px){
+  .cols3{grid-template-columns:1fr 1fr}
+}
+@media screen and (max-width:640px){
+  body{font-size:16px}
+  .cols2,.cols3{grid-template-columns:1fr}
+  ul.list.flow,dl.gl{columns:1}
+  .verses{grid-template-columns:1fr}
+  .vblock + .vblock{margin-top:16px}
+  .bar .wrap{flex-wrap:wrap;gap:6px}
+  .tabs{flex:1 1 100%;max-width:100%;overflow-x:auto;scrollbar-width:none}
+  .tab{flex:1 0 auto;padding:7px 10px;font-size:.84rem}
+  .jump{flex-basis:100%}
+}
+
+/* ---------- PRINT ---------- */
+@page{size:letter;margin:.42in .5in}
+@media print{
+  :root{--bg:#fff;--surface:#fff;--ink:#1D2340;--muted:#4D536A;--line:#D2D6E0;--gold:#B9842B;--gold-ink:#6E4A0C;--olive:#3F5A36;color-scheme:light}
+  html,body{background:#fff}
+  body{font-size:8.7pt;line-height:1.3}
+  body::before,.bar,.hero svg{display:none!important}
+  [role=tabpanel][hidden]{display:block!important}
+  .printonly{display:block}
+  .wrap{max-width:none;padding:0}
+  .hero{background:none;color:var(--ink);border-bottom:2px solid var(--gold)}
+  .hero .wrap{padding:0 0 7pt;display:block}
+  .hero .title{padding:0}
+  .eyebrow{color:var(--gold-ink);font-size:7pt}
+  .hero h1{font-size:23pt;margin:2pt 0 4pt}
+  .hero h1 em{color:var(--gold-ink)}
+  .hero .scripture{font-size:11pt;max-width:none}
+  .hero .cite,.hero .how,.hero .ref{color:var(--muted)}
+  .hero .ref{font-size:7.5pt}
+  .hero .how{font-size:8pt;margin-top:3pt;max-width:none}
+  main{padding:0}
+  section{padding-top:9pt}
+  .sh{padding-bottom:2pt;margin-bottom:4pt;border-bottom-width:1.2pt;break-after:avoid}
+  .sh h2{font-size:12.5pt}
+  .sh .sub{font-size:8pt}
+  h3{font-size:9.3pt;margin-bottom:1pt}
+  a{color:var(--ink)}
+  ul.list li{padding:1pt 0 1pt 9pt}
+  ul.list li::before{top:.6em;width:3.5pt;height:3.5pt;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .verses{grid-template-columns:1fr 1fr;gap:0 22pt}
+  .vbh{font-size:10.5pt}
+  .vbs{font-size:7.6pt;margin-bottom:4pt;padding-bottom:3pt}
+  .vg{margin-bottom:5pt}
+  .vg h4{font-size:9.3pt;margin-bottom:1pt}
+  .vg li{padding:.6pt 0;line-height:1.28}
+  .also{font-size:8pt}
+  .cols2{gap:0 22pt}
+  .cols3{gap:0 18pt}
+  .panel-head{padding-top:6pt}
+  #basics section,#covenant section{padding-top:6pt}
+  .pb > .panel-head{padding-top:0}
+  .panel-head h2{font-size:16pt}
+  .panel-head p{font-size:8pt}
+  .pb{break-before:page}
+  #talks{break-inside:avoid}
+  table.t td{padding:2pt 8pt 2pt 0}
+  dl.gl{columns:3;column-gap:16pt}
+  dl.gl div{padding:1pt 0;font-size:8.2pt}
+  footer{background:none;color:var(--muted);margin-top:10pt;padding:6pt 0 0;border-top:1px solid var(--line);font-size:7.6pt}
+  footer .scripture{color:var(--ink);font-size:10pt}
+  footer{margin-top:6pt;padding-top:4pt}
+  footer .wrap{display:block}
+  footer .wrap p{display:inline;margin-right:8pt}
+  .noprint{display:none!important}
+}
+</style>
+</head>
+<body>
+
+<header class="hero" id="top">
+  <svg class="scene" viewBox="0 0 1440 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <g id="stars" fill="#FFFFFF"></g>
+  </svg>
+  <div class="wrap">
+    <div class="title">
+      <div class="eyebrow">A Resource Guide for New Members</div>
+      <h1>Nourished by the <em>Good Word</em></h1>
+      <p class="ref">Moroni 6:4</p>
+    </div>
+    <svg class="temple" viewBox="0 0 320 290" role="img" aria-label="A temple glowing at sunrise">
+      <defs>
+        <radialGradient id="halo" cx="160" cy="138" r="132" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stop-color="#FFF4D6" stop-opacity=".9"/>
+          <stop offset=".4" stop-color="#FFE3A3" stop-opacity=".35"/>
+          <stop offset="1" stop-color="#FFE3A3" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="stone" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stop-color="#DDD5E8"/>
+          <stop offset=".5" stop-color="#FBF8F2"/>
+          <stop offset="1" stop-color="#D3CAE0"/>
+        </linearGradient>
+      </defs>
+      <circle cx="160" cy="138" r="132" fill="url(#halo)"/>
+      <g id="templeRays" stroke="#FFE9B8" stroke-opacity=".3" stroke-width="1.5" stroke-linecap="round"></g>
+      <g fill="url(#stone)">
+        <rect x="56" y="175" width="208" height="8"/>
+        <rect x="62" y="182" width="196" height="86"/>
+        <rect x="130" y="122" width="60" height="7"/>
+        <rect x="134" y="128" width="52" height="50"/>
+        <rect x="140" y="84" width="40" height="5"/>
+        <rect x="143" y="88" width="34" height="36"/>
+        <rect x="150" y="60" width="20" height="26"/>
+        <path d="M148 62 L160 24 L172 62 Z"/>
+      </g>
+      <g fill="#CFC6DD">
+        <rect x="88" y="188" width="2.5" height="78"/><rect x="108" y="188" width="2.5" height="78"/><rect x="128" y="188" width="2.5" height="78"/>
+        <rect x="189.5" y="188" width="2.5" height="78"/><rect x="209.5" y="188" width="2.5" height="78"/><rect x="229.5" y="188" width="2.5" height="78"/>
+      </g>
+      <g fill="#F6CE7C">
+        <circle cx="160" cy="7.5" r="2.5"/>
+        <path d="M157.5 11 h5 l1.6 11 h-8.2 z"/>
+        <path d="M161.8 12.4 l9.2 -6.6 l1.1 1.5 l-9.2 6.6 z"/>
+      </g>
+      <g fill="#FFD98A">
+        <path d="M73 240 v-30 a5 5 0 0 1 10 0 v30 z"/><path d="M94 240 v-30 a5 5 0 0 1 10 0 v30 z"/><path d="M114 240 v-30 a5 5 0 0 1 10 0 v30 z"/><path d="M135 240 v-30 a5 5 0 0 1 10 0 v30 z"/>
+        <path d="M175 240 v-30 a5 5 0 0 1 10 0 v30 z"/><path d="M196 240 v-30 a5 5 0 0 1 10 0 v30 z"/><path d="M216 240 v-30 a5 5 0 0 1 10 0 v30 z"/><path d="M237 240 v-30 a5 5 0 0 1 10 0 v30 z"/>
+        <path d="M151 268 v-22 a9 9 0 0 1 18 0 v22 z"/>
+        <path d="M154 172 v-30 a6 6 0 0 1 12 0 v30 z"/>
+        <path d="M155 120 v-22 a5 5 0 0 1 10 0 v22 z"/>
+        <path d="M157 82 v-14 a3 3 0 0 1 6 0 v14 z"/>
+      </g>
+      <rect x="128" y="268" width="64" height="4" fill="#D3CAE0"/>
+      <rect x="120" y="272" width="80" height="4" fill="#C6BCD6"/>
+      <path d="M0 290 C 40 272, 110 268, 160 278 C 210 268, 280 272, 320 290 Z" fill="var(--grove-front)"/>
+      <g fill="var(--grove-front)"><circle cx="44" cy="270" r="15"/><circle cx="24" cy="278" r="14"/><circle cx="276" cy="270" r="15"/><circle cx="296" cy="278" r="14"/></g>
+    </svg>
+  </div>
+</header>
+
+<nav class="bar" aria-label="Guide">
+  <div class="wrap">
+    <div class="tabs" role="tablist" aria-label="Guide sections">
+      <button class="tab" role="tab" id="tab-resources" aria-controls="resources" aria-selected="true" data-go="resources">Resources</button>
+      <button class="tab" role="tab" id="tab-covenant" aria-controls="covenant" aria-selected="false" data-go="covenant">Ordinances &amp; Temple</button>
+      <button class="tab" role="tab" id="tab-basics" aria-controls="basics" aria-selected="false" data-go="basics">Church Basics</button>
+    </div>
+    <div class="jump" id="jump-resources">
+      <a href="#scriptures">Scriptures</a><a href="#movies">Movies &amp; videos</a><a href="#talks">Talks</a><a href="#books">Books</a><a href="#apps">Apps &amp; websites</a><a href="#history">History sites</a>
+    </div>
+    <div class="jump" id="jump-covenant" hidden>
+      <a href="#ordinances">Ordinances</a><a href="#temple">Temple &amp; family history</a><a href="#milestones">Spiritual milestones</a>
+    </div>
+    <div class="jump" id="jump-basics" hidden>
+      <a href="#meetings">Meetings</a><a href="#lessons">Gospel lessons</a><a href="#words">Church words</a><a href="#programs">Programs</a><a href="#questions">Questions</a>
+    </div>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<!-- ======================= RESOURCES ======================= -->
+<div role="tabpanel" id="resources" aria-labelledby="tab-resources">
+
+<section id="scriptures">
+  <div class="sh"><h2>Key Scripture Passages</h2></div>
+  <div class="verses" id="verses"></div>
+  <p class="also">Also read the apostles’ testimonies: <a href="https://www.churchofjesuschrist.org/study/scriptures/the-living-christ-the-testimony-of-the-apostles/the-living-christ-the-testimony-of-the-apostles?lang=eng">The Living Christ</a> · <a href="https://www.churchofjesuschrist.org/study/scriptures/the-restoration-of-the-fulness-of-the-gospel-of-jesus-christ/a-bicentennial-proclamation-to-the-world?lang=eng">The Restoration Proclamation</a> · <a href="https://www.churchofjesuschrist.org/study/scriptures/the-family-a-proclamation-to-the-world/the-family-a-proclamation-to-the-world?lang=eng">The Family Proclamation</a></p>
+</section>
+
+<section id="movies">
+  <div class="sh"><h2>Church Movies &amp; Videos</h2></div>
+  <ul class="list flow">
+    <li><a href="https://www.churchofjesuschrist.org/study/video/feature-films/2011-03-01-joseph-smith-the-prophet-of-the-restoration?lang=eng">Joseph Smith: The Prophet of the Restoration</a></li>
+    <li><a href="https://www.justwatch.com/us/search?q=Legacy%201990">Legacy</a></li>
+    <li><a href="https://www.justwatch.com/us/search?q=The%20Testaments%20of%20One%20Fold%20and%20One%20Shepherd">The Testaments of One Fold and One Shepherd</a></li>
+    <li><a href="https://www.churchofjesuschrist.org/media/video/2010-07-0139-treasure-in-heaven-the-john-tanner-story?lang=eng">Treasure in Heaven: The John Tanner Story</a></li>
+    <li><a href="https://www.justwatch.com/us/search?q=The%20Fighting%20Preacher">The Fighting Preacher</a></li>
+    <li><a href="https://www.witnessesfilm.com/">Witnesses</a></li>
+    <li><a href="https://www.justwatch.com/us/search?q=17%20Miracles">17 Miracles</a></li>
+    <li><a href="https://www.justwatch.com/us/search?q=Ephraim%27s%20Rescue">Ephraim’s Rescue</a></li>
+    <li><a href="https://www.justwatch.com/us/search?q=Lamb%20of%20God%202018">Lamb of God</a></li>
+    <li><a href="https://www.churchofjesuschrist.org/study/video/special-witnesses-of-christ?lang=eng">Special Witnesses of Christ</a></li>
+    <li><a href="https://www.justwatch.com/us/search?q=The%20Other%20Side%20of%20Heaven">The Other Side of Heaven</a></li>
+    <li><a href="https://www.churchofjesuschrist.org/media/collection/book-of-mormon-videos">Book of Mormon Videos</a></li>
+    <li><a href="https://www.churchofjesuschrist.org/media/collection/bible-videos">Bible Videos</a></li>
+  </ul>
+</section>
+
+<section id="talks">
+  <div class="sh"><h2>General Conference Talks</h2><span class="sub">About 15 minutes each · <a href="https://www.churchofjesuschrist.org/study/general-conference?lang=eng">all talks</a></span></div>
+  <ul class="list flow">
+    <li><a href="https://www.churchofjesuschrist.org/study/general-conference/1989/04/beware-of-pride?lang=eng">Beware of Pride</a> <span class="n">Ezra Taft Benson, 1989</span></li>
+    <li><a href="https://www.churchofjesuschrist.org/study/general-conference/1986/10/the-book-of-mormon-keystone-of-our-religion?lang=eng">The Book of Mormon—Keystone of Our Religion</a> <span class="n">Ezra Taft Benson, 1986</span></li>
+    <li><a href="https://www.churchofjesuschrist.org/study/general-conference/2009/10/safety-for-the-soul?lang=eng">Safety for the Soul</a> <span class="n">Jeffrey R. Holland, 2009</span></li>
+    <li><a href="https://www.churchofjesuschrist.org/study/general-conference/2007/10/the-stone-cut-out-of-the-mountain?lang=eng">The Stone Cut Out of the Mountain</a> <span class="n">Gordon B. Hinckley, 2007</span></li>
+    <li><a href="https://www.churchofjesuschrist.org/study/general-conference/2014/04/the-keys-and-authority-of-the-priesthood?lang=eng">The Keys and Authority of the Priesthood</a> <span class="n">Dallin H. Oaks, 2014</span></li>
+    <li><a href="https://www.churchofjesuschrist.org/study/general-conference/2020/04/45nelson?lang=eng">Hear Him</a> <span class="n">Russell M. Nelson, 2020</span></li>
+    <li><a href="https://www.churchofjesuschrist.org/study/general-conference/2013/10/come-join-with-us?lang=eng">Come, Join with Us</a> <span class="n">Dieter F. Uchtdorf, 2013</span></li>
+    <li><a href="https://www.churchofjesuschrist.org/study/general-conference/2012/10/converted-unto-the-lord?lang=eng">Converted unto the Lord</a> <span class="n">David A. Bednar, 2012</span></li>
+    <li><a href="https://www.churchofjesuschrist.org/study/general-conference/2013/04/lord-i-believe?lang=eng">Lord, I Believe</a> <span class="n">Jeffrey R. Holland, 2013</span></li>
+    <li><a href="https://www.churchofjesuschrist.org/study/general-conference/2011/10/the-hearts-of-the-children-shall-turn?lang=eng">The Hearts of the Children Shall Turn</a> <span class="n">David A. Bednar, 2011</span></li>
+  </ul>
+</section>
+
+<div class="cols3">
+  <section id="books">
+    <div class="sh"><h2>Books</h2><span class="sub">Lighter reads first</span></div>
+    <ul class="list">
+      <li><a href="https://www.churchofjesuschrist.org/study/manual/our-heritage?lang=eng">Our Heritage</a> <span class="n">1996 · 152 pp.</span></li>
+      <li><a href="https://www.deseretbook.com/search/?q=Our%20Search%20for%20Happiness">Our Search for Happiness</a> <span class="n">1993 · 127 pp.</span></li>
+      <li><a href="https://www.churchofjesuschrist.org/study/history/saints-v1?lang=eng">Saints, Volume 1: The Standard of Truth</a> <span class="n">2018 · about 700 pp.</span></li>
+      <li><a href="https://www.deseretbook.com/search/?q=A%20Marvelous%20Work%20and%20a%20Wonder">A Marvelous Work and a Wonder</a> <span class="n">1950 · 424 pp.</span></li>
+      <li><a href="https://www.gutenberg.org/ebooks/search/?query=parley+pratt">Autobiography of Parley P. Pratt</a> <span class="n">1874 · about 640 pp.</span></li>
+      <li><a href="https://www.deseretbook.com/search/?q=The%20Miracle%20of%20Forgiveness">The Miracle of Forgiveness</a> <span class="n">1969 · 376 pp.</span></li>
+      <li><a href="https://www.churchofjesuschrist.org/study/manual/jesus-the-christ?lang=eng">Jesus the Christ</a> <span class="n">1915 · about 800 pp.</span></li>
+    </ul>
+  </section>
+  <section id="apps">
+    <div class="sh"><h2>Technology &amp; Apps</h2></div>
+    <ul class="list">
+      <li><a href="https://www.churchofjesuschrist.org/learn/mobile-applications/gospel-library?lang=eng">Gospel Library</a> <span class="n">scriptures, talks, music</span></li>
+      <li><a href="https://www.churchofjesuschrist.org/learn/mobile-applications?lang=eng">Member Tools</a> <span class="n">ward directory and calendar</span></li>
+      <li><a href="https://www.familysearch.org/en/tree/">FamilySearch Family Tree</a> <span class="n">your family tree</span></li>
+      <li><a href="https://www.churchofjesuschrist.org/media/music/collections/hymns-for-home-and-church">Hymns—For Home and Church</a></li>
+      <li><a href="https://www.churchofjesuschrist.org/learn/history?lang=eng">Saints Channel &amp; Church history</a></li>
+      <li><a href="https://www.livingscriptures.com/">Living Scriptures</a> <span class="n">animated stories (paid)</span></li>
+    </ul>
+  </section>
+  <section id="websites">
+    <div class="sh"><h2>Websites &amp; Magazines</h2></div>
+    <ul class="list">
+      <li><a href="https://www.churchofjesuschrist.org/">ChurchofJesusChrist.org</a></li>
+      <li><a href="https://www.comeuntochrist.org/">ComeUntoChrist.org</a> <span class="n">to share with friends</span></li>
+      <li><a href="https://www.churchofjesuschrist.org/inspiration/magazines/liahona">Liahona</a> <span class="n">monthly magazine</span></li>
+      <li><a href="https://www.thechurchnews.com/">Church News</a></li>
+      <li><a href="https://speeches.byu.edu/">BYU Speeches</a></li>
+      <li><a href="https://www.josephsmithpapers.org/">Joseph Smith Papers</a></li>
+      <li><a href="https://www.thetabernaclechoir.org/">The Tabernacle Choir</a></li>
+    </ul>
+  </section>
+</div>
+
+  <section id="history">
+    <div class="sh"><h2>Church History Sites</h2><span class="sub">Mostly in the eastern U.S. · drive times from New York City</span></div>
+    <ul class="list flow">
+      <li><a href="https://www.churchofjesuschrist.org/learn/history/sites/new-york-and-pennsylvania?lang=eng">Palmyra, New York</a> <span class="n">Sacred Grove, Smith farm, Hill Cumorah · about 5½ hours</span></li>
+      <li><a href="https://www.churchofjesuschrist.org/learn/history/sites/new-york-and-pennsylvania?lang=eng">Fayette, New York</a> <span class="n">where the Church was organized in 1830 · about 5 hours</span></li>
+      <li><a href="https://www.churchofjesuschrist.org/learn/history/sites/new-york-and-pennsylvania?lang=eng">Priesthood Restoration Site, Pennsylvania</a> <span class="n">about 3 hours</span></li>
+      <li><a href="https://www.churchofjesuschrist.org/learn/history/sites/ohio?lang=eng">Kirtland, Ohio</a> <span class="n">the first temple · about 7½ hours</span></li>
+      <li><a href="https://www.churchofjesuschrist.org/learn/history/sites/historic-nauvoo?lang=eng">Nauvoo, Illinois</a> <span class="n">the city of the Saints · about 16 hours</span></li>
+    </ul>
+  </section>
+</div>
+
+<!-- ======================= ORDINANCES & TEMPLE ======================= -->
+<div role="tabpanel" id="covenant" aria-labelledby="tab-covenant" class="pb" hidden>
+<div class="panel-head">
+  <h2>Ordinances &amp; Temple</h2>
+  <p>The ordinances of the covenant path, temple and family history, and spiritual milestones. Talk with your bishop about timing.</p>
+</div>
+<div class="cols3">
+  <section id="ordinances">
+    <div class="sh"><h2>Ordinances</h2></div>
+    <ul class="list">
+      <li><a href="https://www.churchofjesuschrist.org/study/manual/gospel-topics/baptism?lang=eng">Baptism</a></li>
+      <li><a href="https://www.churchofjesuschrist.org/study/manual/gospel-topics/holy-ghost?lang=eng">Gift of the Holy Ghost</a></li>
+      <li><a href="https://www.churchofjesuschrist.org/study/manual/gospel-topics/sacrament?lang=eng">The sacrament</a></li>
+      <li><a href="https://www.churchofjesuschrist.org/study/manual/gospel-topics/aaronic-priesthood?lang=eng">Aaronic Priesthood</a></li>
+      <li><a href="https://www.churchofjesuschrist.org/study/manual/gospel-topics/melchizedek-priesthood?lang=eng">Melchizedek Priesthood</a></li>
+      <li><a href="https://www.churchofjesuschrist.org/study/manual/gospel-topics/endowment?lang=eng">Temple endowment</a></li>
+      <li><a href="https://www.churchofjesuschrist.org/study/manual/gospel-topics/sealing?lang=eng">Temple sealing</a></li>
+    </ul>
+  </section>
+  <section id="temple">
+    <div class="sh"><h2>Temple &amp; Family History</h2></div>
+    <ul class="list">
+      <li><a href="https://www.churchofjesuschrist.org/study/manual/gospel-topics/temples?lang=eng">About temples</a></li>
+      <li><a href="https://www.familysearch.org/en/tree/">FamilySearch: start your tree</a></li>
+      <li><a href="https://www.churchofjesuschrist.org/study/manual/gospel-topics/family-history?lang=eng">Family history</a></li>
+      <li><a href="https://www.churchofjesuschrist.org/study/manual/gospel-topics/baptisms-for-the-dead?lang=eng">Baptisms for the dead</a></li>
+      <li><a href="https://www.churchofjesuschrist.org/study/manual/endowed-from-on-high?lang=eng">Temple preparation: Endowed from on High</a></li>
+      <li><a href="https://www.churchofjesuschrist.org/temples/details/manhattan-new-york-temple">Manhattan New York Temple</a></li>
+    </ul>
+  </section>
+  <section id="milestones">
+    <div class="sh"><h2>Spiritual Milestones</h2></div>
+    <ul class="list">
+      <li>Limited-use temple recommend</li>
+      <li>Baptisms for the dead in the temple</li>
+      <li><a href="https://www.churchofjesuschrist.org/study/manual/gospel-topics/patriarchal-blessings?lang=eng">Patriarchal blessing</a></li>
+      <li><a href="https://www.churchofjesuschrist.org/study/scriptures/bofm/title-page?lang=eng">Read the Book of Mormon</a></li>
+      <li>Temple endowment and sealing <span class="n">(at least one year after confirmation)</span></li>
+    </ul>
+  </section>
+</div>
+</div>
+
+<!-- ======================= CHURCH BASICS ======================= -->
+<div role="tabpanel" id="basics" aria-labelledby="tab-basics" hidden>
+  <div class="panel-head">
+    <h2>Church Basics</h2>
+    <p>Quick reference for meetings, programs, and the words you will hear at church.</p>
+  </div>
+
+  <div class="cols2">
+    <section id="meetings">
+      <div class="sh"><h2>Meetings</h2></div>
+      <table class="t"><tbody>
+        <tr><td>Every Sunday</td><td>Sacrament meeting, then Sunday School and Relief Society or elders quorum. Children attend Primary; youth meet in their classes.</td></tr>
+        <tr><td>Fast Sunday</td><td>Usually the first Sunday of the month: fasting, fast offerings, and testimonies</td></tr>
+        <tr><td>Stake conference</td><td>Twice a year, all the wards in the stake meet together in place of ward meetings</td></tr>
+        <tr><td>General conference</td><td>First weekends of April and October, broadcast worldwide</td></tr>
+        <tr><td>Each year</td><td>Ward conference; tithing declaration with the bishopric</td></tr>
+        <tr><td>Anytime</td><td>Temple worship, ward activities, institute, temple prep class</td></tr>
+      </tbody></table>
+    </section>
+    <section id="lessons">
+      <div class="sh"><h2>Gospel Lessons</h2></div>
+      <p class="n" style="margin-bottom:4px">The lessons you learned from the missionaries, in <a href="https://www.churchofjesuschrist.org/study/manual/preach-my-gospel-2023?lang=eng">Preach My Gospel</a>.</p>
+      <ul class="list">
+        <li><a href="https://www.churchofjesuschrist.org/study/manual/preach-my-gospel-2023/04-chapter-3/08-chapter-3-lesson-1?lang=eng">The Message of the Restoration</a></li>
+        <li><a href="https://www.churchofjesuschrist.org/study/manual/preach-my-gospel-2023/04-chapter-3/09-chapter-3-lesson-2?lang=eng">Heavenly Father’s Plan of Salvation</a></li>
+        <li><a href="https://www.churchofjesuschrist.org/study/manual/preach-my-gospel-2023/04-chapter-3/10-chapter-3-lesson-3?lang=eng">The Gospel of Jesus Christ</a></li>
+        <li><a href="https://www.churchofjesuschrist.org/study/manual/preach-my-gospel-2023/04-chapter-3/11-chapter-3-lesson-4?lang=eng">Becoming Lifelong Disciples of Jesus Christ</a></li>
+        <li><a href="https://www.churchofjesuschrist.org/learn/come-follow-me">Come, Follow Me</a> <span class="n">weekly study at home and church</span></li>
+      </ul>
+    </section>
+  </div>
+
+  <section id="words">
+    <div class="sh"><h2>Church Words</h2></div>
+    <dl class="gl">
+      <div><dt>Ward.</dt> <dd>Your local congregation. A smaller one is a branch.</dd></div>
+      <div><dt>Stake.</dt> <dd>A group of wards, led by a stake president.</dd></div>
+      <div><dt>Bishop.</dt> <dd>The volunteer leader of a ward, with two counselors (the bishopric).</dd></div>
+      <div><dt>Relief Society.</dt> <dd>The organization for adult women.</dd></div>
+      <div><dt>Elders quorum.</dt> <dd>The organization for adult men.</dd></div>
+      <div><dt>Primary.</dt> <dd>Classes for children ages 3 to 11, with a nursery for younger children.</dd></div>
+      <div><dt>Calling.</dt> <dd>A volunteer assignment to serve.</dd></div>
+      <div><dt>Sustaining.</dt> <dd>Raising your hand to support someone called to serve.</dd></div>
+      <div><dt>Setting apart.</dt> <dd>A blessing given when someone begins a calling.</dd></div>
+      <div><dt>Ministering.</dt> <dd>Members assigned to care for specific people.</dd></div>
+      <div><dt>Covenant.</dt> <dd>A sacred two-way promise with God.</dd></div>
+      <div><dt>Ordinance.</dt> <dd>A sacred act performed by priesthood authority.</dd></div>
+      <div><dt>Temple recommend.</dt> <dd>A card showing you are prepared to enter the temple.</dd></div>
+      <div><dt>Temple garments.</dt> <dd>Sacred clothing worn by endowed members.</dd></div>
+      <div><dt>Proxy work.</dt> <dd>Ordinances done for those who died without them.</dd></div>
+      <div><dt>Patriarch.</dt> <dd>The stake officer who gives patriarchal blessings.</dd></div>
+      <div><dt>First Presidency.</dt> <dd>The prophet and his two counselors.</dd></div>
+      <div><dt>Quorum of the Twelve.</dt> <dd>Twelve apostles, special witnesses of Christ.</dd></div>
+      <div><dt>Fast offering.</dt> <dd>A donation for the poor, at least the cost of two meals.</dd></div>
+      <div><dt>Elder / Sister.</dt> <dd>Titles for missionaries. Members say “Brother” and “Sister.”</dd></div>
+      <div><dt>Seminary / Institute.</dt> <dd>Religion classes for ages 14–18 and 18–30.</dd></div>
+      <div><dt>Latter-day Saints.</dt> <dd>What members call themselves.</dd></div>
+    </dl>
+  </section>
+
+  <div class="cols2">
+    <section id="programs">
+      <div class="sh"><h2>Programs</h2></div>
+      <ul class="list">
+        <li><a href="https://www.churchofjesuschrist.org/life/self-reliance?lang=eng">Self-reliance groups</a> <span class="n">jobs, education, finances</span></li>
+        <li><a href="https://www.byupathway.edu/">BYU–Pathway Worldwide</a> <span class="n">affordable online degrees</span></li>
+        <li><a href="https://www.churchofjesuschrist.org/si/institute?lang=eng">Institute</a> <span class="n">religion classes for ages 18–30</span></li>
+        <li><a href="https://www.justserve.org/">JustServe</a> <span class="n">community service projects</span></li>
+      </ul>
+    </section>
+    <section id="questions">
+      <div class="sh"><h2>When Questions Come</h2></div>
+      <ul class="list">
+        <li>Pray, and study the scriptures and the words of living prophets.</li>
+        <li>Talk with your bishop, ministering brothers or sisters, or the missionaries.</li>
+        <li>Read <a href="https://www.churchofjesuschrist.org/study/manual/gospel-topics?lang=eng">Gospel Topics</a> and the <a href="https://www.churchofjesuschrist.org/study/manual/gospel-topics-essays?lang=eng">Gospel Topics Essays</a>.</li>
+        <li>See how the Church works in the <a href="https://www.churchofjesuschrist.org/study/manual/general-handbook?lang=eng">General Handbook</a>.</li>
+      </ul>
+    </section>
+  </div>
+</div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p class="scripture">“Rooted and built up in him, and stablished in the faith.”<span class="cite">Colossians 2:7</span></p>
+    <p>Prepared by Church members to help new members. Not an official publication of The Church of Jesus Christ of Latter-day Saints.</p>
+    <p class="noprint"><a href="nourished-guide.pdf" style="color:var(--sky-5)">Printable version (PDF)</a></p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  /* ---------- Key scripture passages: two blocks of books. [reference, Gospel Library path, first verse, last verse, note] ---------- */
+  const BLOCKS = [
+    ["Marquee & Doctrinal Passages", "The Book of Mormon, Doctrine and Covenants, and Pearl of Great Price", [
+      ["Book of Mormon", [
+        ["Introduction & Witnesses", "bofm/introduction", 0, 0, "the keystone of our religion; the testimonies of the witnesses"],
+        ["2 Nephi 2:22–27", "bofm/2-ne/2", 22, 27, "the Fall, agency, and “men are, that they might have joy”"],
+        ["2 Nephi 31:10–21", "bofm/2-ne/31", 10, 21, "the doctrine of Christ and the strait and narrow path"],
+        ["Mosiah 18:7–17", "bofm/mosiah/18", 7, 17, "the baptismal covenant at the Waters of Mormon"],
+        ["Alma 7:7–13", "bofm/alma/7", 7, 13, "the Savior takes upon Him our pains and sins"],
+        ["Alma 13:1–9", "bofm/alma/13", 1, 9, "the holy priesthood after the order of the Son of God"],
+        ["Alma 32:27–43", "bofm/alma/32", 27, 43, "faith as a seed that grows into a tree"],
+        ["3 Nephi 11:1–17", "bofm/3-ne/11", 1, 17, "the resurrected Christ appears in the Americas"],
+        ["3 Nephi 11:21–28", "bofm/3-ne/11", 21, 28, "baptism by immersion, by those with authority"],
+        ["Ether 12:6–12", "bofm/ether/12", 6, 12, "faith, and no witness until after the trial of your faith"],
+        ["Moroni 7:44–48", "bofm/moro/7", 44, 48, "charity, the pure love of Christ"],
+        ["Moroni 8:8–15", "bofm/moro/8", 8, 15, "little children need no baptism"],
+        ["Moroni 10:3–7", "bofm/moro/10", 3, 7, "the promise: ask God, and you will know"]
+      ]],
+      ["Doctrine and Covenants", [
+        ["D&C 1:17–30", "dc-testament/dc/1", 17, 30, "why the Lord called Joseph Smith; the only true and living church"],
+        ["D&C 20:71–79", "dc-testament/dc/20", 71, 79, "who may be baptized; the baptism and sacrament prayers"],
+        ["D&C 76:11–24", "dc-testament/dc/76", 11, 24, "“that he lives!”"],
+        ["D&C 84:33–44", "dc-testament/dc/84", 33, 44, "the oath and covenant of the priesthood"],
+        ["D&C 89:5–21", "dc-testament/dc/89", 5, 21, "the Word of Wisdom and its promises"],
+        ["D&C 110:1–16", "dc-testament/dc/110", 1, 16, "Christ, Moses, Elias, and Elijah in the Kirtland Temple"],
+        ["D&C 121:34–46", "dc-testament/dc/121", 34, 46, "“many are called, but few are chosen”"],
+        ["D&C 130:18–23", "dc-testament/dc/130", 18, 23, "the Father and the Son have bodies of flesh and bone"],
+        ["D&C 131:1–4", "dc-testament/dc/131", 1, 4, "eternal marriage"],
+        ["D&C 138:29–37", "dc-testament/dc/138", 29, 37, "the gospel preached to the dead"]
+      ]],
+      ["Pearl of Great Price", [
+        ["Moses 1:27–39", "pgp/moses/1", 27, 39, "“this is my work and my glory”"],
+        ["Joseph Smith—History 1", "pgp/js-h/1", 0, 0, "the First Vision, Moroni and the gold plates, and the priesthood restored"],
+        ["Articles of Faith 1:1–13", "pgp/a-of-f/1", 1, 13, "what Latter-day Saints believe"]
+      ]]
+    ]],
+    ["Bible Passages That Point to the Restoration", "Prophecies of the Restoration and doctrines restored in the latter days", [
+      ["Old Testament", [
+        ["Genesis 12:1–3", "ot/gen/12", 1, 3, "the covenant of Abraham: all nations blessed through his seed"],
+        ["Isaiah 2:1–5", "ot/isa/2", 1, 5, "the mountain of the Lord’s house in the last days"],
+        ["Isaiah 29:9–24", "ot/isa/29", 9, 24, "a sealed book and “a marvellous work and a wonder”"],
+        ["Isaiah 53:1–12", "ot/isa/53", 1, 12, "the suffering Messiah: “with his stripes we are healed”"],
+        ["Jeremiah 1:4–5", "ot/jer/1", 4, 5, "known and called before birth"],
+        ["Ezekiel 37:15–28", "ot/ezek/37", 15, 28, "the stick of Judah and the stick of Joseph become one"],
+        ["Daniel 2:31–45", "ot/dan/2", 31, 45, "a stone cut without hands fills the whole earth"],
+        ["Amos 3:1–8", "ot/amos/3", 1, 8, "the Lord reveals His secrets to His prophets"],
+        ["Amos 8:11–12", "ot/amos/8", 11, 12, "a famine of hearing the word"],
+        ["Malachi 4:1–6", "ot/mal/4", 1, 6, "Elijah will turn the hearts of the fathers and children"]
+      ]],
+      ["New Testament", [
+        ["Matthew 3:13–17", "nt/matt/3", 13, 17, "the Father, Son, and Holy Ghost as three distinct beings"],
+        ["Matthew 16:13–19", "nt/matt/16", 13, 19, "Peter’s witness and the keys of the kingdom"],
+        ["John 10:11–16", "nt/john/10", 11, 16, "the Good Shepherd and His “other sheep”"],
+        ["Acts 3:19–26", "nt/acts/3", 19, 26, "the restitution of all things"],
+        ["Acts 8:14–20", "nt/acts/8", 14, 20, "the Holy Ghost given by the laying on of hands"],
+        ["Acts 19:1–6", "nt/acts/19", 1, 6, "baptized again by proper authority"],
+        ["1 Corinthians 15:29–42", "nt/1-cor/15", 29, 42, "baptism for the dead; glories like the sun, moon, and stars"],
+        ["Galatians 3:26–29", "nt/gal/3", 26, 29, "baptized into Christ, you become Abraham’s seed and heirs"],
+        ["Ephesians 4:11–16", "nt/eph/4", 11, 16, "apostles and prophets until we come to unity"],
+        ["2 Thessalonians 2:1–4", "nt/2-thes/2", 1, 4, "a falling away must come first"],
+        ["Hebrews 5:1–4", "nt/heb/5", 1, 4, "called of God, as was Aaron"],
+        ["James 1:5–6", "nt/james/1", 5, 6, "the verse that led Joseph Smith to pray"],
+        ["1 Peter 3:18–20", "nt/1-pet/3", 18, 20, "Christ preached to the spirits in prison"],
+        ["Revelation 14:6–7", "nt/rev/14", 6, 7, "an angel brings the everlasting gospel"]
+      ]]
+    ]]
+  ];
+  const S = "https://www.churchofjesuschrist.org/study/scriptures/";
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+  const url = (p, a, b) => S + p + "?lang=eng" + (a ? "&id=p" + a + (b > a ? "-p" + b : "") + "#p" + a : "");
+  document.getElementById("verses").innerHTML = BLOCKS.map(([title, sub, books]) =>
+    `<div class="vblock"><h3 class="vbh">${esc(title)}</h3><p class="vbs">${esc(sub)}</p>${books.map(([book, list]) =>
+      `<div class="vg"><h4>${esc(book)}</h4><ul>${list.map(([r, p, a, b, n]) =>
+        `<li><a href="${esc(url(p, a, b))}">${esc(r)}</a> <span class="n">${esc(n)}</span></li>`).join("")}</ul></div>`).join("")}</div>`).join("");
+
+  /* ---------- External links open in a new tab ---------- */
+  document.querySelectorAll('a[href^="http"]').forEach(a => { a.target = "_blank"; a.rel = "noopener"; });
+
+  /* ---------- Tabs, routed on #resources / #basics or any section id ---------- */
+  const panels = ["resources", "covenant", "basics"];
+  function show(name, focusTab){
+    panels.forEach(p => {
+      const on = p === name;
+      document.getElementById(p).hidden = !on;
+      const t = document.getElementById("tab-" + p);
+      t.setAttribute("aria-selected", on); t.tabIndex = on ? 0 : -1;
+      if (on && focusTab) t.focus();
+      document.getElementById("jump-" + p).hidden = !on;
+    });
+  }
+  function route(){
+    const id = decodeURIComponent(location.hash.slice(1));
+    const el = id && document.getElementById(id);
+    const panel = el && el.closest('[role="tabpanel"]');
+    if (!panel) { show("resources"); return; }
+    show(panel.id);
+    if (el !== panel) el.scrollIntoView();
+    else { const bar = document.querySelector(".bar"); if (window.scrollY > bar.offsetTop) window.scrollTo(0, document.querySelector("main").offsetTop - bar.offsetHeight); }
+  }
+  document.querySelectorAll(".tab").forEach(t => t.addEventListener("click", () => {
+    if (location.hash === "#" + t.dataset.go) route(); else location.hash = t.dataset.go;
+  }));
+  document.querySelector(".tabs").addEventListener("keydown", e => {
+    if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+    const cur = panels.findIndex(p => !document.getElementById(p).hidden);
+    const next = panels[(cur + (e.key === "ArrowRight" ? 1 : panels.length - 1)) % panels.length];
+    location.hash = next; show(next, true); e.preventDefault();
+  });
+  window.addEventListener("hashchange", route);
+  route();
+
+  /* ---------- Header scene: stars and rays of light behind the temple ---------- */
+  const NS = "http://www.w3.org/2000/svg", $ = s => document.querySelector(s);
+  let seed = 7;
+  const rnd = () => { seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+  const mk = (tag, attrs, parent) => { const el = document.createElementNS(NS, tag); for (const k in attrs) el.setAttribute(k, attrs[k]); parent.appendChild(el); return el; };
+  for (let i = 0; i < 16; i++) {
+    const a = (-150 + i * 20) * Math.PI / 180;
+    mk("line", {x1:(160 + Math.cos(a)*44).toFixed(1), y1:(112 + Math.sin(a)*44).toFixed(1), x2:(160 + Math.cos(a)*118).toFixed(1), y2:(112 + Math.sin(a)*118).toFixed(1)}, $("#templeRays"));
+  }
+  for (let i = 0; i < 90; i++) mk("circle", {cx:(rnd()*1440).toFixed(1), cy:(rnd()*400).toFixed(1), r:(rnd()*1.2+0.3).toFixed(2), opacity:(rnd()*0.6+0.15).toFixed(2)}, $("#stars"));
+
+})();
+</script>
+</body>
+</html>
